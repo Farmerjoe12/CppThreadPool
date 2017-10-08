@@ -4,6 +4,13 @@
 #include<vector>
 #include<chrono>
 
+/** In program 0, the goals covered align with issue 1 and project 1 from
+ ** the repository. The point of this program is to become familiar with thread
+ ** creation and usage in a dynamic process. This is the first program of many,
+ ** and should provide a good foundation to build on for what's to come.
+**/
+
+
 // This simple function will print a message to cout, sleep, then 
 //  print another message. A mutex is used to lock cout so that only
 //  one thread prints at a time.
