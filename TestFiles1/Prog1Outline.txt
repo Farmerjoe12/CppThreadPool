@@ -1,0 +1,88 @@
+Program 1 outline
+
+# Description
+** This program is for the initial phase of thread development.
+**   and will be used as familiarization with the concept.
+** As most programs using a thread pool should start the same,
+**   this procedure will be the very first program to learn
+**   and test properly.
+
+# Outline- Parallel code
+1. Query amount of available usable threads on machine
+2. Create an equal amount of thread objects
+2a. Thread objects will reside in a thread[]
+3. Send each thread object a task (wait for x amount of time)
+** This should show parallelism and speedups vs. serial code
+** TEST: Include serial version in order to show speedup time
+4. Send output
+5. Join threads
+6. End program 
+
+# Outline- Serial code
+1. Query machine's threads
+2. Create an embarassingly parallel task
+2a. Wait for x amount of time
+2b. Here the amount of time will be chosen based on the 
+    same procedure of the parallel code. Therefore, if the 
+    hardware supports 4 cores, the amount of time will be 4x
+    the amount of time each individual core will wait in the 
+    parallel code. Or, 4 tasks with the same amount of wait.
+3. Send output
+4. End program
+
+
+# Program flow
+1. Query machine
+1a. Start timer
+2. Dynamically create thread object array
+3. An equal number of thread objects will be created compared
+   to the amount of available cores on the machine
+4. Create a task to send to each thread
+5. Task is simply to wait for an amount of time based on the 
+   number of threads.
+6. Ex: If 4 threads, wait 4 seconds, 1 second per thread
+NOTE: For serial version, the machine will wait for 4 seconds
+** This should clearly indicate a speedup based on the parallel
+** nature of the code.
+** A timer should be used to time program execution time to 
+** reinforce this idea.
+7. After the task is executed, print "thread X done"
+8. Join all threads
+8a. End timer- print output
+9. End program
+
+# Thoughts
+** As is the focus of this project, this program should
+**  be highly scalable and function properly on any hardware.
+**  In other words, a machine with 2 cores or 8 cores should 
+**  return output that correlates directly with those cores.
+NOTE: Although no problem will ever be as cut and dry as 
+** pausing execution on a per thread basis, this program
+** should provide a very good introduction to threading
+** concepts such as dynamic allocation and task division.
+
+# Pseudo-code
+
+int n = numberOfThreads()	# query machine
+thread tArray[n]		# create array of n threads
+int waitTime = 10000		# 10 second wait time
+
+void task()
+{
+  wait(waitTime/n)		# divide wait time by n
+}				# for each thread
+
+int main()
+{
+  timer.start()
+  for (th in tArray)
+  {
+    print("Thread # %d beginning", threadID)
+    th(wait)
+    print("Thread # %d done", threadID)
+  }
+  for (th in tArray)
+    th.join()
+  timer.end()
+  return 0
+}
